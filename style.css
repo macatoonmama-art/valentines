@@ -712,6 +712,75 @@ body.dark-theme .taskbar {
     }
 }
 
+/* ========== PAINTING WINDOW ========== */
+
+.painting-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.portrait-display {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border: 3px solid var(--primary-pink);
+    box-shadow: inset 0 0 20px rgba(255, 105, 180, 0.3);
+    overflow: hidden;
+}
+
+.portrait-text {
+    font-size: 11px;
+    line-height: 8px;
+    text-align: justify;
+    font-family: 'Courier New', monospace;
+    width: 95%;
+    height: 95%;
+    margin: 0;
+    padding: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+    background-clip: text;
+    animation: portraitGlow 3s ease-in-out infinite;
+}
+
+@keyframes portraitGlow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+.painting-info {
+    padding: 1rem;
+    text-align: center;
+    background: var(--pastel-pink);
+    border: 2px solid var(--primary-pink);
+    color: var(--text-dark);
+}
+
+.painting-title {
+    margin: 0 0 0.5rem 0;
+    font-weight: bold;
+    font-size: 0.65rem;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.painting-description {
+    margin: 0;
+    font-size: 0.55rem;
+    line-height: 1.4;
+}
+
 /* ========== MEMORIES WINDOW ========== */
 
 .memories-content {
@@ -1913,6 +1982,16 @@ body.dark-theme .hearts-game-container {
     .memory-game-container {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .portrait-display {
+        height: 250px;
+        border: 2px solid var(--primary-pink);
+    }
+
+    .portrait-text {
+        font-size: 10px;
+        line-height: 7px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1954,6 +2033,31 @@ body.dark-theme .hearts-game-container {
         max-width: 90vw !important;
         height: 75vh !important;
         max-height: 75vh !important;
+    }
+
+    .portrait-display {
+        height: 200px;
+        border: 2px solid var(--primary-pink);
+        margin-bottom: 10px;
+    }
+
+    .portrait-text {
+        font-size: 9px;
+        line-height: 6px;
+    }
+
+    .painting-info {
+        padding: 10px;
+    }
+
+    .painting-title {
+        font-size: 0.6rem;
+        margin-bottom: 8px;
+    }
+
+    .painting-description {
+        font-size: 0.5rem;
+        line-height: 1.3;
     }
 }
 

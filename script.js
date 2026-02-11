@@ -439,6 +439,24 @@ class WindowManager {
     }
 }
 
+// ========== PORTRAIT GENERATOR ==========
+
+function generatePortraitText(width = 40, height = 30) {
+    // Create ASCII-like art text pattern for portrait display
+    const chars = ['█', '▓', '▒', '░', ' ', '•', '◯'];
+    let text = '';
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            // Create a pattern that will show behind the background image
+            const value = Math.sin(x * 0.1 + y * 0.1) * 0.5 + 0.5;
+            text += chars[Math.floor(value * chars.length)];
+        }
+        text += '\n';
+    }
+    return text;
+}
+
 // ========== MEMORIES WINDOW ==========
 
 class MemoriesWindow {
@@ -533,6 +551,43 @@ class MemoriesWindow {
             });
         }
         playSound('click');
+    }
+}
+
+// ========== PAINTING WINDOW ==========
+
+class PaintingWindow {
+    constructor(windowManager) {
+        this.windowManager = windowManager;
+        this.portraitImage = 'portrait.jpg'; // User will add this file
+    }
+
+    create() {
+        const template = document.getElementById('paintingTemplate');
+        const content = template.content.cloneNode(true);
+
+        const portraitDisplay = content.querySelector('.portrait-text');
+        
+        // Generate portrait text pattern
+        const portraitText = generatePortraitText(45, 35);
+        portraitDisplay.textContent = portraitText;
+        
+        // Apply background image styling
+        // User will add 'wawers.jpg' to the folder
+        portraitDisplay.style.backgroundImage = `url('wawers.jpg')`;
+        portraitDisplay.style.backgroundSize = 'cover';
+        portraitDisplay.style.backgroundPosition = 'center';
+        portraitDisplay.style.backgroundRepeat = 'no-repeat';
+
+        // Create window
+        const wrapper = document.createElement('div');
+        wrapper.appendChild(content);
+        this.windowManager.createWindow('painting', '🎨 My Painting', wrapper);
+
+        playSound('open');
+        unlockAchievement('painting_viewed', 'Art Lover', '🎨');
+
+        return wrapper;
     }
 }
 
@@ -1264,6 +1319,9 @@ class LoveSystem {
                 break;
             case 'secret':
                 window = new SecretWindow(this.windowManager).create();
+                break;
+            case 'painting':
+                window = new PaintingWindow(this.windowManager).create();
                 break;
         }
 
